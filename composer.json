@@ -1,6 +1,6 @@
 {
-  "name": "lonecat/framework",
-  "description": "Super light and simple PSR web framework",
+  "name": "lonecat/template-engine",
+  "description": "Simple PHP template engine",
   "minimum-stability": "stable",
   "license": "AGPL-3.0-only",
   "authors": [
@@ -11,7 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "LoneCat\\Framework\\": "src/"
+      "LoneCat\\TemplateEngine\\": "src/"
     }
   },
   "autoload-dev": {
@@ -24,13 +24,7 @@
     "sort-packages": true
   },
   "require": {
-    "php": ">=7.4",
-    "lonecat/psr7": "*",
-    "lonecat/psr11": "*",
-    "lonecat/psr15": "*",
-    "lonecat/router": "*",
-    "ext-mbstring": "*",
-    "psr/http-factory": "*"
+    "php": ">=7.4"
   },
   "require-dev": {
     "phpunit/phpunit": "*"
