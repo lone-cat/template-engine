@@ -9,7 +9,7 @@ class Renderer
 
     protected string $path;
 
-    public function __construct(string $root_path)
+    public function __construct(string $root_path = 'templates')
     {
         $this->path = realpath($root_path);
         require_once __DIR__ . '/Facades/Block.php';
