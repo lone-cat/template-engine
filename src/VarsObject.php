@@ -16,7 +16,7 @@ class VarsObject
         return $this->parameters[$name] ?? $default;
     }
 
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->get($name);
     }
@@ -24,6 +24,14 @@ class VarsObject
     public function __set($name, $value)
     {
 
+    }
+
+    public function html(string $name, $default = null) {
+        return htmlentities($this->get($name, $default));
+    }
+
+    public function input(string $name, $default = null) {
+        return htmlentities($this->get($name, $default));
     }
 
 }

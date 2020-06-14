@@ -15,7 +15,6 @@ class Renderer
     public function __construct(string $root_path = 'templates')
     {
         $this->path = realpath($root_path);
-        require_once __DIR__ . '/Functions/Functions.php';
         $this->block_collection = new BlockCollection();
         $renderer = $this;
         $this->render_function = function (string $filename, array $parameters) use ($renderer) {

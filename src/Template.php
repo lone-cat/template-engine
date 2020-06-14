@@ -15,7 +15,6 @@ class Template
         unset($render_function);
         $template = $this;
         $vars = new VarsObject($parameters);
-        extract($parameters, EXTR_SKIP);
         unset($parameters);
         require $filename;
     }
