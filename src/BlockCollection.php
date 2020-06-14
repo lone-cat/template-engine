@@ -7,10 +7,6 @@ class BlockCollection
     protected array $collection = [];
     protected array $block_names = [];
 
-    private function add(string $block_name, string $block_content) {
-        $this->collection[$block_name] = $block_content;
-    }
-
     public function get(string $block_name) {
         return $this->collection[$block_name];
     }
@@ -31,7 +27,13 @@ class BlockCollection
 
     public function end() {
         $block_name = array_pop($this->block_names);
-        $this->collection[$block_name] = ob_get_clean();
+
+        if (!isset($this->collection[$block_name])) {
+            $this->collection[$block_name] = ob_get_contents();
+        }
+
+        ob_end_clean();
+
         if (count($this->block_names) > 0) {
             echo $this->collection[$block_name];
         }
