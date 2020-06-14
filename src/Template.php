@@ -6,15 +6,14 @@ use Closure;
 
 class Template
 {
-    protected $parent_template_name;
-    protected Closure $render_function;
+    private $parent_template_name;
+    private Closure $render_function;
 
-    public function __construct(Closure $render_function, BlockCollection $block, string $filename, array $parameters = [])
+    public function __construct(Closure $render, BlockCollection $block, string $filename, array $parameters = [])
     {
-        $this->render_function = $render_function;
-        unset($render_function);
+        $this->render_function = $render;
         $template = $this;
-        $vars = new VarsObject($parameters);
+        extract($parameters, EXTR_SKIP);
         unset($parameters);
         require $filename;
     }

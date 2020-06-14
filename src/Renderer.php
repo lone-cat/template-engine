@@ -16,6 +16,7 @@ class Renderer
     {
         $this->path = realpath($root_path);
         $this->block_collection = new BlockCollection();
+        require_once 'Output.php';
         $renderer = $this;
         $this->render_function = function (string $filename, array $parameters) use ($renderer) {
             return $renderer->render($filename, $parameters);
