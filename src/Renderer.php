@@ -18,7 +18,7 @@ class Renderer
         $this->block_collection = new BlockCollection();
         $renderer = $this;
         $this->render_function = function (string $filename, array $parameters) use ($renderer) {
-            $renderer->render($filename, $parameters);
+            return $renderer->render($filename, $parameters);
         };
     }
 
