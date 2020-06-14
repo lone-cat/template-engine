@@ -7,7 +7,7 @@ class BlockCollection
     protected array $collection = [];
     protected array $block_names = [];
 
-    public function add(string $block_name, string $block_content) {
+    private function add(string $block_name, string $block_content) {
         $this->collection[$block_name] = $block_content;
     }
 
@@ -18,6 +18,15 @@ class BlockCollection
     public function start(string $block_name) {
         ob_start();
         $this->block_names[] = $block_name;
+    }
+
+    public function startOver(string $block_name)
+    {
+        unset($this->collection[$block_name]);
+        if (in_array($block_name, $this->block_names, true)) {
+            throw new \Exception('Unfinished block cant be overwritten');
+        }
+        $this->start($block_name);
     }
 
     public function end() {

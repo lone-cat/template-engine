@@ -2,31 +2,34 @@
 
 namespace LoneCat\TemplateEngine;
 
+use Closure;
 use Throwable;
 
 class Renderer
 {
 
-    protected string $path;
+    private string $path;
+    private BlockCollection $block_collection;
+    private Closure $render_function;
 
     public function __construct(string $root_path = 'templates')
     {
         $this->path = realpath($root_path);
-        require_once __DIR__ . '/Facades/Block.php';
-        require_once __DIR__ . '/Facades/Template.php';
         require_once __DIR__ . '/Functions/Functions.php';
         $this->block_collection = new BlockCollection();
+        $renderer = $this;
+        $this->render_function = function (string $filename, array $parameters) use ($renderer) {
+            $renderer->render($filename, $parameters);
+        };
     }
 
     public function render(string $templateName, array $params = []): string
     {
-        \Template::setRenderer($this);
         try {
             do {
                 $templateFile = $this->path . '/' . $templateName . '.phtml';
                 ob_start();
-                $template = new TemplateObject($templateFile, $params);
-                \Template::getContent($template);
+                $template = new Template($this->render_function, $this->block_collection, $templateFile, $params);
                 $content = ob_get_clean();
             } while ($templateName = $template->getParentTemplatename());
         } catch (Throwable $e) {
